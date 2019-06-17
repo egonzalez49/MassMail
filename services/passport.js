@@ -25,20 +25,18 @@ passport.use(
       proxy: true
     },
     //callback function after user acceps auth
-    (accessToken, refreshToken, profile, done) => {
+    async (accessToken, refreshToken, profile, done) => {
       //find user in db with googleId matching profileId
-      User.findOne({ googleId: profile.id }).then(existingUser => {
-        if (existingUser) {
-          //indicate adding user is done
-          //pass in error (or null) and the user
-          done(null, existingUser);
-        } else {
-          //create new user inside db
-          new User({ googleId: profile.id })
-            .save()
-            .then(user => done(null, user));
-        }
-      });
+      const existingUser = await User.findOne({ googleId: profile.id });
+      if (existingUser) {
+        //indicate adding user is done
+        //pass in error (or null) and the user
+        done(null, existingUser);
+      } else {
+        //create new user inside db
+        const user = await new User({ googleId: profile.id }).save();
+        done(null, user);
+      }
     }
   )
 );

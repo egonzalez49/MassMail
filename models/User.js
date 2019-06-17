@@ -5,7 +5,8 @@ const { Schema } = mongoose;
 
 //properties of records in collection
 const userSchema = new Schema({
-  googleId: String
+  googleId: String,
+  credits: { type: Number, default: 0 }
 });
 
 //creates new collection called users

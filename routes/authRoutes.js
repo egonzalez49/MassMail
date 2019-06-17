@@ -10,13 +10,19 @@ module.exports = app => {
   );
 
   //after successful code from google auth, send google code and run strategy callback
-  app.get('/auth/google/callback', passport.authenticate('google'));
+  app.get(
+    '/auth/google/callback',
+    passport.authenticate('google'),
+    (req, res) => {
+      res.redirect('/surveys');
+    }
+  );
 
   //logout
   app.get('/api/logout', (req, res) => {
     //attached by passport, removes id from cookie
     req.logout();
-    res.send(req.user);
+    res.redirect('/');
   });
 
   //testing route to show logged-in user
