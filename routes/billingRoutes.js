@@ -12,7 +12,7 @@ module.exports = app => {
     });
 
     if (charge.status != 'succeeded')
-      return res.status(402).json({ error: 'Payment failed.' });
+      return res.status(402).send({ error: 'Payment failed.' });
 
     req.user.credits += 5;
     const user = await req.user.save();

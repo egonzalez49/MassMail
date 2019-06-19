@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const keys = require('./config/keys');
 //must require model before using it in another file
 require('./models/User');
+require('./models/Survey');
 require('./services/passport');
 
 mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
@@ -29,6 +30,7 @@ app.use(passport.session());
 //takes app object and wraps routes
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
 
 //express behaving in production (send unknown routes to client build)
 if (process.env.NODE_ENV === 'production') {

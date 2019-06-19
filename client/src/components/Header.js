@@ -34,10 +34,11 @@ class Header extends React.Component {
   render() {
     return (
       <nav>
-        <div className="nav-wrapper">
+        <div className="nav-wrapper blue-grey darken-4">
           <Link
             to={this.props.auth ? '/surveys' : '/'}
             className="left brand-logo"
+            style={{ margin: '0 10px' }}
           >
             MassMail
           </Link>
